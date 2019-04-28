@@ -1,0 +1,57 @@
+*更新系统 重启
+#yum update
+#reboot
+
+*update repo
+#yum -y install yum-utils device-mapper-persistent-data lvm2
+#yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+#yum-config-manager --enable docker-ce-edge
+
+*install docker
+#yum -y install docker-ce
+
+#systemctl start docker
+#systemctl enable docker
+#docker run hello-world
+#curl -L https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+#chmod +x /usr/local/bin/docker-compose
+
+*install nextcloud
+#mkdir nextcloud-server
+#cd nextcloud-server
+#vi docker-compose.yml
+
+version: '2'
+
+volumes:
+  nextcloud:
+  db:
+
+services:
+  db:
+    image: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_ROOT_PASSWORD=md42bjqmv2
+      - MYSQL_PASSWORD=md42bjqmv2
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+
+  app:
+    image: nextcloud
+    ports:
+      - 8080:80
+    links:
+      - db
+    volumes:
+      - nextcloud:/var/www/html
+    restart: always
+
+#docker-compose up -d
+
+
+
