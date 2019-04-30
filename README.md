@@ -47,7 +47,13 @@ UUID=1f029461-83f5-4f88-a358-2ef397a74b45 /mnt/data               ext4   _netdev
 #cd nextcloudstepbystep
 #docker-compose up -d
 ```
+
 *设置好初始用户名密码 查询mariadb ip地址命令: docker inspect id，端口3306 
+*设置目录夹权限, 确认初次设置后目录的owner id 使用chown更改为一致
+```
+chown -R XX:XX /mnt/data
+```
+*设置onlyoffice连接
 ```
 #./set-configuration.sh *运行sh文件,链接onlyoffice
 ```
