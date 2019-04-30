@@ -32,4 +32,8 @@ UUID=1f029461-83f5-4f88-a358-2ef397a74b45 /mnt/data               ext4   _netdev
 
 *安装nextcloud-onlyoffice
 #git clone https://github.com/sesametoy/nextcloudstepbystep
-#cd nextcloud-onlyoffice-docker
+#cd nextcloudstepbystep
+#docker-compose up -d
+*设置好初始用户名密码 查询mariadb ip地址命令: docker inspect id，端口3306 
+*删除软件命令 docker-compose down, 删除数据命令 docker-compose down -v 删除image命令, docker-compose down --rmi all
+#reboot
