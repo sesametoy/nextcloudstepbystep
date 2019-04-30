@@ -1,8 +1,8 @@
 # nextcloudstepbystep
 
 *更新系统 重启
-#yum update
-#reboot
+# yum update
+# reboot
 
 *update repo
 #yum -y install yum-utils device-mapper-persistent-data lvm2
