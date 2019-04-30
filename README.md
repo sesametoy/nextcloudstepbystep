@@ -1,14 +1,16 @@
 # nextcloudstepbystep
 
 *更新系统 重启
-# yum update
-# reboot
-
+```
+#yum update
+#reboot
+```
 *update repo
+```
 #yum -y install yum-utils device-mapper-persistent-data lvm2
 #yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 #yum-config-manager --enable docker-ce-edge
-
+```
 *install docker
 #yum -y install docker-ce
 
