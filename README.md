@@ -35,11 +35,14 @@
 umcommon node.startup = automatic
 #vi /etc/fstab
 UUID=1f029461-83f5-4f88-a358-2ef397a74b45 /mnt/data               ext4   _netdev         0 0
+#mkdir /mnt/data
 ```
 *查看uuid命令 blkid
 
 *安装nextcloud-onlyoffice
 ```
+#yum install -y git
+#cd /root
 #git clone https://github.com/sesametoy/nextcloudstepbystep
 #cd nextcloudstepbystep
 #docker-compose up -d
