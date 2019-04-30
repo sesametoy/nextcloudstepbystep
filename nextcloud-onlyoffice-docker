@@ -23,4 +23,9 @@
 #systemctl enable iscsi
 #iscsiadm -m discovery -t st -p 192.168.1.135
 #iscsiadm -m node -T iqn.2010-09.org.napp-it:nextcloud4t -p 192.168.1.135 -l
-#
+*编辑开机挂载iscsi
+#vi /etc/iscsi/iscsid.conf
+umcommon node.startup = automatic
+#vi /etc/fstab
+UUID=1f029461-83f5-4f88-a358-2ef397a74b45 /mnt/data               ext4   _netdev         0 0
+*查看uuid命令 blkid
