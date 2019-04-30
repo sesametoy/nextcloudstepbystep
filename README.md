@@ -12,6 +12,7 @@
 #yum-config-manager --enable docker-ce-edge
 ```
 *install docker
+```
 #yum -y install docker-ce
 
 #systemctl start docker
@@ -19,27 +20,35 @@
 #docker run hello-world
 #curl -L https://github.com/docker/compose/releases/download/1.24.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 #chmod +x /usr/local/bin/docker-compose
-
+```
 *安装iSCSI盘
+```
 #yum -y install iscsi-initiator-utils 
 #systemctl start iscsi
 #systemctl enable iscsi
 #iscsiadm -m discovery -t st -p 192.168.1.135
 #iscsiadm -m node -T iqn.2010-09.org.napp-it:nextcloud4t -p 192.168.1.135 -l
+```
 *编辑开机挂载iscsi
+```
 #vi /etc/iscsi/iscsid.conf
 umcommon node.startup = automatic
 #vi /etc/fstab
 UUID=1f029461-83f5-4f88-a358-2ef397a74b45 /mnt/data               ext4   _netdev         0 0
+```
 *查看uuid命令 blkid
 
 *安装nextcloud-onlyoffice
+```
 #git clone https://github.com/sesametoy/nextcloudstepbystep
 #cd nextcloudstepbystep
 #docker-compose up -d
+```
 *设置好初始用户名密码 查询mariadb ip地址命令: docker inspect id，端口3306 
-
+```
 #./set-configuration.sh *运行sh文件,链接onlyoffice
- 
+```
 *删除软件命令 docker-compose down, 删除数据命令 docker-compose down -v 删除image命令, docker-compose down --rmi all
+```
 #reboot
+```
