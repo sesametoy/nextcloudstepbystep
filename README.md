@@ -64,7 +64,7 @@ chown -R XX:XX /mnt/data
 
 
 #日常运行命令
-**
+
 ```
 cd /root/nextcloudstepbysetp
 ```
