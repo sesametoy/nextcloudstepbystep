@@ -61,3 +61,27 @@ chown -R XX:XX /mnt/data
 ```
 #reboot
 ```
+
+
+*运行命令
+**
+```
+cd /root/nextcloudstepbysetp
+```
+启动docker 
+```
+docker-compose up
+```
+重启
+```
+docker-compose restart
+```
+暂停
+```
+docker-compose down
+```
+删除
+```
+docker-compose down -v 
+```
+
