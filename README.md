@@ -70,7 +70,7 @@ cd /root/nextcloudstepbysetp
 ```
 启动docker 
 ```
-docker-compose up
+docker-compose up -d
 ```
 重启
 ```
@@ -80,7 +80,7 @@ docker-compose restart
 ```
 docker-compose down
 ```
-删除
+删除 (包括volume)
 ```
 docker-compose down -v 
 ```
