@@ -84,4 +84,8 @@ docker-compose down
 ```
 docker-compose down -v 
 ```
+查询uuid
+```
+sudo blkid
+```
 
