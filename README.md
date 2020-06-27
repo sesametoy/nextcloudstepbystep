@@ -25,7 +25,7 @@
 ```
 yum install -y nfs-utils rpcbind
 mkdir /mnt/data
-mount -t nfs 192.168.1.20:/mnt/data /data
+mount -t nfs 192.168.1.20:/Home_Store_30T/30TZFS/nextcloud/data /mnt/data
 ```
 *安装iSCSI盘
 ```
@@ -55,6 +55,10 @@ UUID=1f029461-83f5-4f88-a358-2ef397a74b45 /mnt/data               ext4   _netdev
 ```
 
 *设置好初始用户名密码 查询mariadb ip地址命令: docker inspect id，端口3306 
+```
+docker ps
+docker inspect <id>
+```
 *设置目录夹权限, 确认初次设置后目录的owner id 使用chown更改为一致
 ```
 chown -R XX:XX /mnt/data
