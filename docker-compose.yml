@@ -1,51 +1,9 @@
 version: '3'
 services:
-  app:
-    container_name: app-server
-    image: nextcloud:fpm
-    stdin_open: true
-    tty: true
-    restart: always
-    expose:
-      - '80'
-      - '9000'
-    networks:
-      - onlyoffice
-    volumes:
-      - app_data:/var/www/html
-      - /root/nextcloud/config:/var/www/html/config
-      - /mnt/data:/var/www/html/data
-  onlyoffice-document-server:
-    container_name: onlyoffice-document-server
-    image: onlyoffice/documentserver:latest
-    stdin_open: true
-    tty: true
-    restart: always
-    networks:
-      - onlyoffice
-    expose:
-      - '80'
-      - '443'
-    volumes:
-      - document_data:/var/www/onlyoffice/Data
-      - document_log:/var/log/onlyoffice
-  nginx:
-    container_name: nginx-server
-    image: nginx
-    stdin_open: true
-    tty: true
-    restart: always
-    ports:
-      - 80:80
-      - 443:443
-    networks:
-      - onlyoffice
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - app_data:/var/www/html
   db:
     container_name: mariadb
     image: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
     volumes:
       - mysql_data:/var/lib/mysql
@@ -55,13 +13,60 @@ services:
       - MYSQL_PASSWORD=md42bjqmv2
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-    networks:
-      - onlyoffice
-networks:
-  onlyoffice:
-    driver: 'bridge'
-volumes:
-  document_data:
-  document_log:
-  app_data:
-  mysql_data:
+  app:
+    container_name: app-server
+    image: nextcloud:fpm
+    stdin_open: true
+    tty: true
+    links:
+      - db
+    restart: always
+#    expose:
+#      - '80'
+#      - '9000'
+#    networks:
+#      - onlyoffice
+    volumes:
+      - app_data:/var/www/html
+      - /root/nextcloud/config:/var/www/html/config
+      - /mnt/data:/var/www/html/data
+#  onlyoffice-document-server:
+#    container_name: onlyoffice-document-server
+#    image: onlyoffice/documentserver:latest
+#    stdin_open: true
+#    tty: true
+#    restart: always
+#    networks:
+#      - onlyoffice
+#    expose:
+#      - '80'
+#      - '443'
+#    volumes:
+#      - document_data:/var/www/onlyoffice/Data
+#      - document_log:/var/log/onlyoffice
+  nginx:
+    container_name: nginx-server
+    image: nginx
+    stdin_open: true
+    tty: true
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+#    networks:
+#      - onlyoffice
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    volumes_from:
+      - app
+
+#    networks:
+#      - onlyoffice
+#networks:
+#  onlyoffice:
+#    driver: 'bridge'
+#volumes:
+#  document_data:
+#  document_log:
+#  app_data:
+#  mysql_data:
