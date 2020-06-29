@@ -5,35 +5,53 @@
 #yum update
 #reboot
 ```
-*update repo
-```
-#yum -y install yum-utils device-mapper-persistent-data lvm2
-#yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-#yum-config-manager --enable docker-ce-edge
-```
 *install docker
 ```
-#yum -y install docker-ce
+#curl -sSL https://get.docker.com/ | sh
 
 #systemctl start docker
 #systemctl enable docker
 #docker run hello-world
-#curl -L https://github.com/docker/compose/releases/download/1.26.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-#chmod +x /usr/local/bin/docker-compose
 ```
+*install portainer
+make portainer volume 
+```
+#docker volume create portainer_data
+```
+run Portainer container on port 9000
+```
+#docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+```
+setup docker via portainer  Http://ip:9000
+
+*安装mariadb
+1.portainer 安装mariadb by templete 设置restart aways
+2. portainer 安装nginx 设置 restart always  设置端口 80:80 443:443
+3. portainer 安装nextcloud 设置restart always 设置端口 8080:80
+  设置 volume 
+  /var/www/html ->bind-> /root/nextcloud
+  /var/www/html/config ->bind-> /root/nextcloud/config
+  /var/www/html/data ->bind-> /mnt/data
+
 *挂载NFS
 ```
 yum install -y nfs-utils rpcbind
 mkdir /mnt/data
 mount -t nfs 192.168.1.20:/Home_Store_30T/30TZFS/nextcloud/data /mnt/data
 ```
+*设置napp-it iSCSI映射
+1. import LU
+2. create target
+3. create target group
+4. create view (LU) into target group
+
 *安装iSCSI盘
 ```
 #yum -y install iscsi-initiator-utils 
 #systemctl start iscsi
 #systemctl enable iscsi
-#iscsiadm -m discovery -t st -p 192.168.1.135
-#iscsiadm -m node -T iqn.2010-09.org.napp-it:nextcloud4t -p 192.168.1.135 -l
+#iscsiadm -m discovery -t st -p 192.168.1.XXX
+#iscsiadm -m node -T iqn.XXXXXXXX -p 192.168.1.XXX -l
 ```
 *编辑开机挂载iscsi
 ```
