@@ -79,3 +79,12 @@ chown -R XX:XX /mnt/data
 数据库用户名 root 密码 md42jqmv2
 数据库地址：<根据portainer显示 mariadb的地址及端口号填写>
 
+```
+*设置上传大于512m
+```
+#vi /nextcloud/config/www/nextcloud/.user.ini
+添加如下
+php_value upload_max_filesize 16G
+php_value post_max_size 16G
+php_value max_input_time 3600
+php_value max_execution_time 3600
